@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Django
+*.log
+*.pot
+*.pyc
+.env
+.env.*
+db.sqlite3
+
+# Docker volumes
+.volumes/
+
+# Docker Compose override files (local, dev, prod)
+docker-compose.override.yaml
+docker-compose.override.yml
+docker-compose.local.yaml
+docker-compose.local.yml
+docker-compose.prod.yaml
+docker-compose.prod.yml
+
+# Example: keep templates instead of real config
+!docker-compose.override.yaml.example
+!docker-compose.local.yaml.example
+!docker-compose.prod.yaml.template
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.idea/
+.vscode/
+
+# Test and coverage outputs
+htmlcov/
+.coverage
+.coverage.*
+
+# Static and media (if generated during runtime or collected separately)
+static/
+media/

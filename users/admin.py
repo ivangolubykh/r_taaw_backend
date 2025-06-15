@@ -1,0 +1,43 @@
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import Group
+
+from users.models import UserModel
+
+admin.site.unregister(Group)
+
+
+@admin.register(UserModel)
+class UserAdmin(BaseUserAdmin):
+    model = UserModel
+    list_display = (
+        "id",
+        "username",
+        "nickname",
+        "email",
+        "email_verified_at",
+        "language",
+        "is_staff",
+        "is_superuser",
+    )
+    list_filter = ("is_staff", "is_superuser", "language")
+    search_fields = ("username", "email", "nickname")
+    ordering = ("id",)
+    readonly_fields = ("email_verified_at", "created_at", "updated_at", "last_login")
+
+    fieldsets = (
+        (None, {"fields": ("username", "password")}),
+        ("Personal info", {"fields": ("nickname", "email", "language", "avatar", "email_verified_at")}),
+        ("Permissions", {"fields": ("is_active", "is_staff", "is_superuser", "groups", "user_permissions")}),
+        ("Important dates", {"fields": ("last_login", "created_at", "updated_at")}),
+    )
+
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": ("username", "email", "password1", "password2", "is_staff", "is_superuser"),
+            },
+        ),
+    )

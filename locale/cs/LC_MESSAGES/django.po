@@ -1,0 +1,309 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-15 10:03+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+#: cookbook/models.py:9
+msgid "Healthy lifestyle"
+msgstr ""
+
+#: cookbook/models.py:10
+msgid "Low calorie, fiber rich"
+msgstr ""
+
+#: cookbook/models.py:13
+msgid "Quick"
+msgstr ""
+
+#: cookbook/models.py:14
+msgid "Prepares in 15–30 minutes"
+msgstr ""
+
+#: cookbook/models.py:17
+msgid "Very affordable"
+msgstr ""
+
+#: cookbook/models.py:18
+msgid "Inexpensive ingredients"
+msgstr ""
+
+#: cookbook/models.py:21
+msgid "Holiday"
+msgstr ""
+
+#: cookbook/models.py:22
+msgid "Suitable for special occasions"
+msgstr ""
+
+#: cookbook/models.py:25
+msgid "Vegan"
+msgstr ""
+
+#: cookbook/models.py:26
+msgid "No animal products"
+msgstr ""
+
+#: cookbook/models.py:29
+msgid "Vegetarian"
+msgstr ""
+
+#: cookbook/models.py:30
+msgid "No meat, may contain eggs/dairy"
+msgstr ""
+
+#: cookbook/models.py:33
+msgid "Gluten-free"
+msgstr ""
+
+#: cookbook/models.py:34
+msgid "No wheat, barley, etc."
+msgstr ""
+
+#: cookbook/models.py:37
+msgid "High protein"
+msgstr ""
+
+#: cookbook/models.py:38
+msgid "Sports, protein-rich"
+msgstr ""
+
+#: cookbook/models.py:41
+msgid "Low carb"
+msgstr ""
+
+#: cookbook/models.py:42
+msgid "Suitable for keto diet"
+msgstr ""
+
+#: cookbook/models.py:45
+msgid "Traditional"
+msgstr ""
+
+#: cookbook/models.py:46
+msgid "National and classic dishes"
+msgstr ""
+
+#: cookbook/models.py:49
+msgid "Experimental"
+msgstr ""
+
+#: cookbook/models.py:50
+msgid "Unusual, creative"
+msgstr ""
+
+#: cookbook/models.py:53
+msgid "Children-friendly"
+msgstr ""
+
+#: cookbook/models.py:54
+msgid "Mild taste, simple, no spicy"
+msgstr ""
+
+#: cookbook/models.py:57
+msgid "Spicy"
+msgstr ""
+
+#: cookbook/models.py:58
+msgid "Hot and spicy"
+msgstr ""
+
+#: cookbook/models.py:61
+msgid "Breakfast"
+msgstr ""
+
+#: cookbook/models.py:62
+msgid "Morning dishes"
+msgstr ""
+
+#: cookbook/models.py:65
+msgid "Lunch"
+msgstr ""
+
+#: cookbook/models.py:66
+msgid "Main midday dish"
+msgstr ""
+
+#: cookbook/models.py:69
+msgid "Dinner"
+msgstr ""
+
+#: cookbook/models.py:70
+msgid "Evening dishes"
+msgstr ""
+
+#: cookbook/models.py:73
+msgid "Dessert"
+msgstr ""
+
+#: cookbook/models.py:74
+msgid "Sweet dishes"
+msgstr ""
+
+#: cookbook/models.py:82
+msgid "Calories per 100g/ml"
+msgstr ""
+
+#: cookbook/models.py:87
+msgid "Enter the energy value per 100g or 100ml of the product."
+msgstr ""
+
+#: cookbook/models.py:94
+msgid "Ingredient"
+msgstr ""
+
+#: cookbook/models.py:95
+msgid "Ingredients"
+msgstr ""
+
+#: cookbook/models.py:105
+msgid "Ingredient translation"
+msgstr ""
+
+#: cookbook/models.py:106
+msgid "Ingredient translations"
+msgstr ""
+
+#: cookbook/models.py:122
+#, python-format
+msgid "You already have a recipe titled '%(title)s'."
+msgstr ""
+
+#: cookbook/models.py:140
+msgid "Recipe"
+msgstr ""
+
+#: cookbook/models.py:141
+msgid "Recipes"
+msgstr ""
+
+#: cookbook/models.py:152
+msgid "Recipe translation"
+msgstr ""
+
+#: cookbook/models.py:153
+msgid "Recipe translations"
+msgstr ""
+
+#: cookbook/models.py:161
+msgid "gram"
+msgstr ""
+
+#: cookbook/models.py:162
+msgid "kilogram"
+msgstr ""
+
+#: cookbook/models.py:163
+msgid "milliliter"
+msgstr ""
+
+#: cookbook/models.py:164
+msgid "liter"
+msgstr ""
+
+#: cookbook/models.py:165
+msgid "piece"
+msgstr ""
+
+#: cookbook/models.py:166
+msgid "tablespoon"
+msgstr ""
+
+#: cookbook/models.py:167
+msgid "teaspoon"
+msgstr ""
+
+#: cookbook/models.py:168
+msgid "cup"
+msgstr ""
+
+#: cookbook/models.py:184
+msgid "Recipe ingredient"
+msgstr ""
+
+#: cookbook/models.py:185
+msgid "Recipe ingredients"
+msgstr ""
+
+#: cookbook/models.py:196
+#, python-format
+msgid "Step number %(order)s already exists for this recipe."
+msgstr ""
+
+#: cookbook/models.py:207
+msgid "Step"
+msgstr ""
+
+#: cookbook/models.py:208
+msgid "Steps"
+msgstr ""
+
+#: cookbook/models.py:233
+msgid "Recipe tag"
+msgstr ""
+
+#: cookbook/models.py:234
+msgid "Recipe tags"
+msgstr ""
+
+#: users/models.py:15
+msgid "Username is required"
+msgstr ""
+
+#: users/models.py:41
+msgid "Username"
+msgstr ""
+
+#: users/models.py:42
+msgid "Email address"
+msgstr ""
+
+#: users/models.py:43
+msgid "Nickname"
+msgstr ""
+
+#: users/models.py:45
+msgid "Active"
+msgstr ""
+
+#: users/models.py:46
+msgid "Staff status"
+msgstr ""
+
+#: users/models.py:47
+msgid "Email verified at"
+msgstr ""
+
+#: users/models.py:50
+msgid "Preferred language"
+msgstr ""
+
+#: users/models.py:57
+msgid "Created at"
+msgstr ""
+
+#: users/models.py:58
+msgid "Updated at"
+msgstr ""
+
+#: users/models.py:66
+msgid "User"
+msgstr ""
+
+#: users/models.py:67
+msgid "Users"
+msgstr ""

@@ -1,0 +1,13 @@
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = "True"
+force_grid_wrap = 2
+ensure_newline_before_comments = "True"
+line_length = 120
+skip = "migrations"
+atomic = "True"
+
+[tool.black]
+exclude = '/(git||venv|.volumes|migrations)/'
+line-length = 120

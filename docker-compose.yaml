@@ -1,0 +1,159 @@
+services:
+  r_taaw_postgres_db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "pg_isready", "--dbname=${POSTGRES_DB}", "--username=${POSTGRES_USER}"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 10s
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#    ports:
+#      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  django_app_preloader:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure:2
+    healthcheck:
+      test: "netstat -plutn | grep 0.0.0.0:8000"
+      interval: 3s
+      timeout: 1s  # maximum duration of one check
+      retries: 3  # after how many unsuccessful attempts will the status become unhealthy
+      start_period: 1m30s  # at this time from the start of the container, the retries counter does not go
+    user: "1000:1000"
+    command: bash -c "python manage.py collectstatic --noinput; python manage.py migrate; python manage.py compilemessages"
+    tty: true
+    env_file:
+      - .env
+    environment:
+      DEBUG: ${DEBUG}
+      SECRET_KEY: ${SECRET_KEY}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      GUNICORN_BIND: ${GUNICORN_BIND}
+      GUNICORN_MODULE: ${GUNICORN_MODULE}
+      GUNICORN_WORKERS: ${GUNICORN_WORKERS}
+      GUNICORN_THREADS: ${GUNICORN_THREADS}
+      GUNICORN_TIMEOUT: ${GUNICORN_TIMEOUT}
+      GUNICORN_ACCESS_LOGFILE: ${GUNICORN_ACCESS_LOGFILE}
+      GUNICORN_ERROR_LOGFILE: ${GUNICORN_ERROR_LOGFILE}
+      GUNICORN_LOGLEVEL: ${GUNICORN_LOGLEVEL}
+      GUNICORN_RELOAD: ${GUNICORN_RELOAD}
+    volumes:
+      - .:/home/python_my/django_app
+      - staticdata:/home/python_my/django_app/static
+      - logs:/tmp/logs
+    depends_on:
+      # https://github.com/compose-spec/compose-spec/blob/main/spec.md
+      r_taaw_postgres_db:
+#        condition: service_started
+        condition: service_healthy
+    networks:
+      - backend
+
+  django_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    healthcheck:
+      test: "netstat -plutn | grep 0.0.0.0:8000"
+      interval: 3s
+      timeout: 1s  # maximum duration of one check
+      retries: 3  # after how many unsuccessful attempts will the status become unhealthy
+      start_period: 1m30s  # at this time from the start of the container, the retries counter does not go
+    user: "1000:1000"
+    command: gunicorn ${GUNICORN_MODULE}:application -c gunicorn.conf.py
+#    command: sleep infinity
+#    command: python manage.py runserver_plus --print-sql 0.0.0.0:8000
+    tty: true
+    env_file:
+      - .env
+    environment:
+      DEBUG: ${DEBUG}
+      SECRET_KEY: ${SECRET_KEY}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      GUNICORN_BIND: ${GUNICORN_BIND}
+      GUNICORN_MODULE: ${GUNICORN_MODULE}
+      GUNICORN_WORKERS: ${GUNICORN_WORKERS}
+      GUNICORN_THREADS: ${GUNICORN_THREADS}
+      GUNICORN_TIMEOUT: ${GUNICORN_TIMEOUT}
+      GUNICORN_ACCESS_LOGFILE: ${GUNICORN_ACCESS_LOGFILE}
+      GUNICORN_ERROR_LOGFILE: ${GUNICORN_ERROR_LOGFILE}
+      GUNICORN_LOGLEVEL: ${GUNICORN_LOGLEVEL}
+      GUNICORN_RELOAD: ${GUNICORN_RELOAD}
+#    ports:
+#      - "8000:8000"
+    volumes:
+      - .:/home/python_my/django_app
+      - staticdata:/home/python_my/django_app/static
+      - logs:/tmp/logs
+    depends_on:
+      # https://github.com/compose-spec/compose-spec/blob/main/spec.md
+      r_taaw_postgres_db:
+#        condition: service_started
+        condition: service_healthy
+      django_app_preloader:
+        condition: service_completed_successfully
+    networks:
+      - backend
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d
+      - staticdata:/static:ro
+      - logs:/tmp/logs
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - django_app
+    networks:
+      - backend
+
+volumes:
+  logs:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: bind
+      device: "./.volumes/logs"
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: bind
+      device: "./.volumes/db_data"
+  staticdata:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: bind
+      device: "./static"
+
+networks:
+  backend:
+    driver: bridge
