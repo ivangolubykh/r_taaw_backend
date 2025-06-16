@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-15 10:04+0000\n"
+"POT-Creation-Date: 2025-06-16 10:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
+
 #: cookbook/models.py:9
 msgid "Healthy lifestyle"
 msgstr ""
@@ -154,109 +155,149 @@ msgstr ""
 msgid "Sweet dishes"
 msgstr ""
 
-#: cookbook/models.py:82
-msgid "Calories per 100g/ml"
+#: cookbook/models.py:77
+msgid "Snack"
 msgstr ""
 
-#: cookbook/models.py:87
-msgid "Enter the energy value per 100g or 100ml of the product."
+#: cookbook/models.py:78
+msgid "Light meal or quick bite"
+msgstr ""
+
+#: cookbook/models.py:81
+msgid "Street food"
+msgstr ""
+
+#: cookbook/models.py:82
+msgid "Popular food sold in public places"
+msgstr ""
+
+#: cookbook/models.py:85
+msgid "Comfort food"
+msgstr ""
+
+#: cookbook/models.py:86
+msgid "Familiar, nostalgic, feel-good dishes"
+msgstr ""
+
+#: cookbook/models.py:89
+msgid "Low effort"
+msgstr ""
+
+#: cookbook/models.py:90
+msgid "Minimal cooking or prep needed"
+msgstr ""
+
+#: cookbook/models.py:93
+msgid "High calorie"
 msgstr ""
 
 #: cookbook/models.py:94
+msgid "Dense and filling dishes"
+msgstr ""
+
+#: cookbook/models.py:102
+msgid "Calories per 100g/ml"
+msgstr ""
+
+#: cookbook/models.py:107
+msgid "Enter the energy value per 100g or 100ml of the product."
+msgstr ""
+
+#: cookbook/models.py:114
 msgid "Ingredient"
 msgstr ""
 
-#: cookbook/models.py:95
+#: cookbook/models.py:115
 msgid "Ingredients"
 msgstr ""
 
-#: cookbook/models.py:105
+#: cookbook/models.py:125
 msgid "Ingredient translation"
 msgstr ""
 
-#: cookbook/models.py:106
+#: cookbook/models.py:126
 msgid "Ingredient translations"
 msgstr ""
 
-#: cookbook/models.py:122
+#: cookbook/models.py:142
 #, python-format
 msgid "You already have a recipe titled '%(title)s'."
 msgstr ""
 
-#: cookbook/models.py:140
+#: cookbook/models.py:160
 msgid "Recipe"
 msgstr ""
 
-#: cookbook/models.py:141
+#: cookbook/models.py:161
 msgid "Recipes"
 msgstr ""
 
-#: cookbook/models.py:152
+#: cookbook/models.py:172
 msgid "Recipe translation"
 msgstr ""
 
-#: cookbook/models.py:153
+#: cookbook/models.py:173
 msgid "Recipe translations"
 msgstr ""
 
-#: cookbook/models.py:161
+#: cookbook/models.py:181
 msgid "gram"
 msgstr ""
 
-#: cookbook/models.py:162
+#: cookbook/models.py:182
 msgid "kilogram"
 msgstr ""
 
-#: cookbook/models.py:163
+#: cookbook/models.py:183
 msgid "milliliter"
 msgstr ""
 
-#: cookbook/models.py:164
+#: cookbook/models.py:184
 msgid "liter"
 msgstr ""
 
-#: cookbook/models.py:165
+#: cookbook/models.py:185
 msgid "piece"
 msgstr ""
 
-#: cookbook/models.py:166
+#: cookbook/models.py:186
 msgid "tablespoon"
 msgstr ""
 
-#: cookbook/models.py:167
+#: cookbook/models.py:187
 msgid "teaspoon"
 msgstr ""
 
-#: cookbook/models.py:168
+#: cookbook/models.py:188
 msgid "cup"
 msgstr ""
 
-#: cookbook/models.py:184
+#: cookbook/models.py:204
 msgid "Recipe ingredient"
 msgstr ""
 
-#: cookbook/models.py:185
+#: cookbook/models.py:205
 msgid "Recipe ingredients"
 msgstr ""
 
-#: cookbook/models.py:196
+#: cookbook/models.py:216
 #, python-format
 msgid "Step number %(order)s already exists for this recipe."
 msgstr ""
 
-#: cookbook/models.py:207
+#: cookbook/models.py:227
 msgid "Step"
 msgstr ""
 
-#: cookbook/models.py:208
+#: cookbook/models.py:228
 msgid "Steps"
 msgstr ""
 
-#: cookbook/models.py:233
+#: cookbook/models.py:253
 msgid "Recipe tag"
 msgstr ""
 
-#: cookbook/models.py:234
+#: cookbook/models.py:254
 msgid "Recipe tags"
 msgstr ""
 

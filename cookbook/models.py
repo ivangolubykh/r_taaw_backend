@@ -73,6 +73,26 @@ PREDEFINED_TAGS = {
         "name": _("Dessert"),
         "description": _("Sweet dishes"),
     },
+    "snack": {
+        "name": _("Snack"),
+        "description": _("Light meal or quick bite"),
+    },
+    "street_food": {
+        "name": _("Street food"),
+        "description": _("Popular food sold in public places"),
+    },
+    "comfort_food": {
+        "name": _("Comfort food"),
+        "description": _("Familiar, nostalgic, feel-good dishes"),
+    },
+    "low_effort": {
+        "name": _("Low effort"),
+        "description": _("Minimal cooking or prep needed"),
+    },
+    "high_calorie": {
+        "name": _("High calorie"),
+        "description": _("Dense and filling dishes"),
+    },
 }
 
 
