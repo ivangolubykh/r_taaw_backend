@@ -150,16 +150,24 @@ docker compose exec django_app pytest
 
 We welcome contributions!
 
-Please follow these steps before opening a PR:
+Please follow these steps:
 
-1. **Find or open an issue** for what you want to change.
+1. **Find or open an issue** describing the task you want to work on.
 2. **Comment that you are working on it**, to avoid duplication.
-3. Wait for feedback/approval (if it’s a proposal).
-4. Create a PR that **references the issue**.
-5. **The PR title must begin with the issue number**, e.g. `[#42] Add i18n support for user profiles`.
-6. Keep your PR focused and atomic.
+3. Wait for feedback or approval (if it’s a new proposal).
+4. **Fork this repository**, and create a new branch based on the latest `dev`.
+5. Name your branch clearly (e.g. `add-i18n-support`).
+6. When you open a Pull Request:
+   - Target the `dev` branch, not `main`
+   - Add a descriptive title, such as `[#42] Add i18n support for user profiles`
+   - In the PR description, include a line like:  
+     `Closes #42` — this will automatically close the issue when the PR is merged.
+7. Keep your PR focused and atomic. One task — one PR.
 
-Only one person should work on a task at a time.
+🔐 Only one person should work on a task at a time.  
+Please always claim a task by commenting on the corresponding issue.
+
+📌 **Note:** If your change is significant, open an issue first to discuss it before starting work.
 
 ---
 

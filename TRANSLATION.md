@@ -24,22 +24,41 @@ Localization files are stored in:
 locale/<language_code>/LC_MESSAGES/django.po
 ```
 
-### ✅ To extract new translatable strings:
+### ✅ To extract and compile translatable strings
 
 If you've added new `_()` or `gettext()` strings in the codebase and want to update translation files for all supported languages:
+
+1. **Open a shell in the running Django container**:
+
+```bash
+docker compose exec django_app bash
+```
+
+2. **Run the script to extract messages and update `.po` files**:
 
 ```bash
 ./make_translations.sh
 ```
-This will update all .po files accordingly.
 
-Then edit the generated `.po` file (text-based) and compile it to `.mo`:
+3. **Compile translations** (you can do this in two ways):
+
+- Either manually in the container:
 
 ```bash
 python manage.py compilemessages
 ```
 
-⚠️ Don’t forget to run `compilemessages`, or new translations will not take effect.
+- Or **restart the Docker containers**, since the `django_app_preloader` service runs this automatically:
+
+```bash
+docker compose up --build
+# or run just the preloader if needed:
+docker compose run --rm django_app_preloader
+```
+
+> ⚠ ️ Don’t forget: `.po` files must be compiled to `.mo` for translations to take effect at runtime.
+
+This approach ensures consistent builds both in development and in production environments.
 
 ---
 
