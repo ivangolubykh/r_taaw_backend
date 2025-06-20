@@ -1,6 +1,11 @@
 #!/bin/bash
+set -e
 
-# Сопоставление LibreTranslate-языков с Django-совместимыми локалями
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+cd "$PROJECT_ROOT"
+
+# Mapping LibreTranslate languages to Django-compatible locales
 declare -A DJANGO_LOCALE_MAP=(
     [sq]="sq"
     [ar]="ar"
@@ -53,7 +58,7 @@ declare -A DJANGO_LOCALE_MAP=(
     [ur]="ur"
 )
 
-# Перебор всех ключей (LibreTranslate-кодов)
+# Enumeration of all keys (LibreTranslate codes)
 for lang in "${!DJANGO_LOCALE_MAP[@]}"; do
     locale="${DJANGO_LOCALE_MAP[$lang]}"
     echo "🔤 Generating messages for: $locale"

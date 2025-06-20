@@ -2,7 +2,10 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 
-from users.models import UserModel
+from users.models import (
+    UserModel,
+    UserSetting,
+)
 
 admin.site.unregister(Group)
 
@@ -41,3 +44,12 @@ class UserAdmin(BaseUserAdmin):
             },
         ),
     )
+
+
+@admin.register(UserSetting)
+class UserSettingAdmin(admin.ModelAdmin):
+    list_display = ("user", "key", "value", "last_modified")
+    list_filter = ("key",)
+    search_fields = ("user__username", "value")
+    ordering = ("user__id", "key")
+    readonly_fields = ("last_modified",)

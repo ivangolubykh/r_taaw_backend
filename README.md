@@ -13,9 +13,9 @@ This repository contains the **backend** for the project, built with Django.
 
 ## 📦 Tech Stack
 
-- Python 3.13 + Django REST Framework  
-- PostgreSQL  
-- Docker + Docker Compose  
+- Python 3.13 + Django REST Framework
+- PostgreSQL
+- Docker + Docker Compose
 - JWT Authentication
 
 ---
@@ -23,25 +23,29 @@ This repository contains the **backend** for the project, built with Django.
 ## 🚀 Quick Start
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/ivangolubykh/r_taaw_backend.git
    cd r_taaw_backend
    ```
 
 2. Prepare the environment:
+
    ```bash
-   cp .env.sample .env
+   cp .env.example .env
    mkdir -p .volumes/db_data .volumes/logs static
    chmod ugo=rwx .volumes/logs
    ```
 
 3. Build and run:
+
    ```bash
    docker compose build --no-cache
    docker compose up
    ```
 
 4. Initialize the database:
+
    ```bash
    docker compose exec django_app bash
    python manage.py migrate
@@ -49,6 +53,7 @@ This repository contains the **backend** for the project, built with Django.
    ```
 
 5. To stop the containers, run:
+
    ```bash
    docker compose down
    ```
@@ -57,8 +62,9 @@ This repository contains the **backend** for the project, built with Django.
 
 ## 📄 Additional Materials
 
-- [`DEVELOPER_GUIDE.md`](DEVELOPER_GUIDE.md) — extended documentation for developers  
-- [`TRANSLATION.md`](TRANSLATION.md) — localization instructions  
+- [`DEVELOPER_GUIDE.md`](DEVELOPER_GUIDE.md) — extended documentation for developers
+- [`TRANSLATION.md`](TRANSLATION.md) — localization instructions
+- [`Makefile.local.example`](Makefile.local.example) — optional local Makefile overrides
 - [`LICENSE`](LICENSE) — project license (MIT)
 
 ---

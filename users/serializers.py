@@ -2,6 +2,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
+from .models import UserSetting
+from .validators import VALIDATORS_BY_KEY
+
 User = get_user_model()
 
 
@@ -15,7 +18,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         model = User
         fields = ("username", "password", "email", "nickname", "language")
 
-    def validate_password(self, value):
+    @staticmethod
+    def validate_password(value):
         validate_password(value)
         return value
 
@@ -39,3 +43,18 @@ class CurrentUserSerializer(serializers.ModelSerializer):
             "language",
             "avatar",
         )
+
+
+class UserSettingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserSetting
+        fields = ["key", "value", "last_modified"]
+        read_only_fields = ["last_modified"]
+
+    def validate(self, data):
+        key = data.get("key")
+        value = data.get("value")
+        validator = VALIDATORS_BY_KEY.get(key)
+        if validator:
+            validator(value)
+        return data

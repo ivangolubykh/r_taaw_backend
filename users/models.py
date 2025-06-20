@@ -78,3 +78,29 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+
+
+class UserSettingKey(models.TextChoices):
+    LOCALE = "locale", "Locale"
+    THEME_MODE = "theme_mode", "Theme Mode"
+    SORT_MODE = "sort_mode", "Sort Mode"
+
+
+class UserSetting(models.Model):
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    key = models.CharField(max_length=50, choices=UserSettingKey.choices)
+    value = models.TextField()
+    last_modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ["user", "key"]
+
+    def __str__(self):
+        return f"{self.user.username} - {self.key}"
+
+    def as_dict(self):
+        return {
+            "key": self.key,
+            "value": self.value,
+            "last_modified": self.last_modified.isoformat(),
+        }

@@ -37,7 +37,7 @@ docker compose exec django_app bash
 2. **Run the script to extract messages and update `.po` files**:
 
 ```bash
-./make_translations.sh
+make translations
 ```
 
 3. **Compile translations** (you can do this in two ways):
@@ -56,7 +56,7 @@ docker compose up --build
 docker compose run --rm django_app_preloader
 ```
 
-> ⚠ ️ Don’t forget: `.po` files must be compiled to `.mo` for translations to take effect at runtime.
+> ⚠️ Don’t forget: `.po` files must be compiled to `.mo` for translations to take effect at runtime.
 
 This approach ensures consistent builds both in development and in production environments.
 
