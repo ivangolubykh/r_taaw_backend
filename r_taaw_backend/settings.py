@@ -1,19 +1,17 @@
 import os
+import sys
 from pathlib import Path
 
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+LOG_DIR = "/tmp/logs"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = ["*"]
@@ -25,8 +23,6 @@ CORS_ALLOWED_ORIGINS = [
 extra_origins = config("CORS_ALLOWED", default="", cast=str)
 if extra_origins:
     CORS_ALLOWED_ORIGINS += [origin.strip() for origin in extra_origins.split(",") if origin.strip()]
-
-# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -43,7 +39,7 @@ INSTALLED_APPS = [
     "users",
 ]
 
-MIDDLEWARE = [
+BASE_MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -56,6 +52,15 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+MIDDLEWARE = (
+    [
+        "middlewares.log_all_requests.LogAllRequestsMiddleware",
+    ]
+    + BASE_MIDDLEWARE
+    if DEBUG
+    else BASE_MIDDLEWARE
+)
 
 ROOT_URLCONF = "r_taaw_backend.urls"
 
@@ -76,10 +81,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "r_taaw_backend.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -90,9 +91,6 @@ DATABASES = {
         "PORT": config("POSTGRES_PORT"),
     }
 }
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -115,14 +113,64 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Cooked by Ivan Golubykh API",
+    "TITLE": "R‑Taaw: Recipes to Remember API",
     "DESCRIPTION": "API for managing recipes, ingredients and users",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[{asctime}] {levelname:<8} {name:<20} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname}: {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG" if DEBUG else "INFO",
+            "class": "logging.StreamHandler",
+            "stream": sys.stdout,
+            "formatter": "verbose",
+        },
+        "file": {
+            "level": "DEBUG" if DEBUG else "INFO",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": os.path.join(LOG_DIR, "django.log"),
+            "maxBytes": 1024 * 1024 * 100,  # 100 MB
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "django.server": {
+            "handlers": ["console", "file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "django.request": {
+            "handlers": ["console", "file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "users": {
+            "handlers": ["console", "file"],
+            "level": "DEBUG" if DEBUG else "INFO",
+            "propagate": False,
+        },
+        "": {
+            "handlers": ["console", "file"],
+            "level": "DEBUG" if DEBUG else "INFO",
+        },
+    },
+}
+
 LANGUAGE_CODE = "en"
 LANGUAGES = [
     ("sq", "Albanian - Shqip"),
@@ -178,7 +226,6 @@ LANGUAGES = [
 
 TIME_ZONE = "UTC"
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 LOCALE_PATHS = [
     BASE_DIR / "locale",
@@ -186,8 +233,6 @@ LOCALE_PATHS = [
 
 AUTH_USER_MODEL = "users.UserModel"
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
 STATIC_URL = "static/"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "files", "media")
@@ -195,14 +240,24 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 ADMIN_EMAIL = config("ADMIN_EMAIL")
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, ".django_emails.log")  # change this to a proper location
+TESTING = any("test" in arg for arg in sys.argv)
+
+if DEBUG:
+    if TESTING:
+        EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    else:
+        EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+        EMAIL_FILE_PATH = os.path.join(LOG_DIR, "django_emails.log")
+
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = config("EMAIL_HOST")
+    EMAIL_PORT = config("EMAIL_PORT", cast=int)
+    EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+    EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
+    DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default=EMAIL_HOST_USER)
 
 SHELL_PLUS_PRINT_SQL_TRUNCATE = None
-
-# TEST_RUNNER = "redgreenunittest.django.runner.RedGreenDiscoverRunner"

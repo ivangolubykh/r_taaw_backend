@@ -1,4 +1,5 @@
 from django.utils import timezone
+from drf_spectacular.utils import extend_schema
 from rest_framework import (
     permissions,
     status,
@@ -13,12 +14,14 @@ from ..serializers import UserSettingSerializer
 class UserSettingView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
+    @extend_schema(responses=UserSettingSerializer(many=True))
     def get(self, request):
         user = request.user
         settings = UserSetting.objects.filter(user=user)
         serializer = UserSettingSerializer(settings, many=True)
         return Response(serializer.data)
 
+    @extend_schema(request=UserSettingSerializer, responses=UserSettingSerializer)
     def post(self, request):
         user = request.user
         data = request.data.copy()
