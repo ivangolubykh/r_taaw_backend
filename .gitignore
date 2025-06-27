@@ -6,7 +6,6 @@ __pycache__/
 # Django
 *.log
 *.pot
-*.pyc
 db.sqlite3
 
 # Django environment files
@@ -54,3 +53,19 @@ media/
 
 # Make overrides (user-specific)
 Makefile.local
+
+# Local overrides and configs
+*.local
+.local/
+local/
+
+# Common local override extensions (but allow templates)
+*.local.yaml
+*.local.yml
+*.local.json
+
+# Allow template examples
+!Makefile.local.example
+!*.local.yaml.example
+!*.local.yml.example
+!*.local.json.example
