@@ -19,18 +19,17 @@ class UserAdmin(BaseUserAdmin):
         "nickname",
         "email",
         "email_verified_at",
-        "language",
         "is_staff",
         "is_superuser",
     )
-    list_filter = ("is_staff", "is_superuser", "language")
+    list_filter = ("is_staff", "is_superuser")
     search_fields = ("username", "email", "nickname")
     ordering = ("id",)
     readonly_fields = ("email_verified_at", "created_at", "updated_at", "last_login")
 
     fieldsets = (
         (None, {"fields": ("username", "password")}),
-        ("Personal info", {"fields": ("nickname", "email", "language", "avatar", "email_verified_at")}),
+        ("Personal info", {"fields": ("nickname", "email", "avatar", "email_verified_at")}),
         ("Permissions", {"fields": ("is_active", "is_staff", "is_superuser", "groups", "user_permissions")}),
         ("Important dates", {"fields": ("last_login", "created_at", "updated_at")}),
     )
