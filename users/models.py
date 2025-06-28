@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -7,6 +6,8 @@ from django.contrib.auth.models import (
 from django.contrib.auth.password_validation import validate_password
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+from users.constants.setting_keys import UserSettingKey
 
 
 class UserManager(BaseUserManager):
@@ -46,12 +47,6 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(_("Staff status"), default=False)
     email_verified_at = models.DateTimeField(_("Email verified at"), null=True, blank=True)
 
-    language = models.CharField(
-        _("Preferred language"),
-        max_length=10,
-        choices=settings.LANGUAGES,
-        default=settings.LANGUAGE_CODE,
-    )
     avatar = models.ImageField(upload_to="avatars/", null=True, blank=True)
 
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
@@ -78,12 +73,6 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
-
-
-class UserSettingKey(models.TextChoices):
-    LOCALE = "locale", "Locale"
-    THEME_MODE = "theme_mode", "Theme Mode"
-    SORT_MODE = "sort_mode", "Sort Mode"
 
 
 class UserSetting(models.Model):
