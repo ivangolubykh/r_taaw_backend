@@ -134,6 +134,7 @@ class Recipe(models.Model):
     original_language = models.CharField(max_length=10, choices=settings.LANGUAGES)
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
+    is_public = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     tags = models.ManyToManyField("RecipeTag", blank=True, related_name="recipes")
 
